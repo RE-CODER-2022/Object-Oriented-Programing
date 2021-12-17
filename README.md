@@ -49,6 +49,23 @@ RE:CODER는 멘토 멘티로 학습을 장려하는 스터디 소모임입니다
             <br />
             <a href="https://github.com/bbang-jun">bbang-jun</a>
         </td>
+        <td align="center" width="130px">
+            <a href="https://github.com/lmhyuck"><img height="100px" width="100px" src="https://avatars.githubusercontent.com/u/49359991?v=4"/></a>
+            <br />
+            <a href="https://github.com/lmhyuck">lmhyuck</a>
+        </td>
+    </tr>
+    <tr height="150px">
+        <td align="center" width="130px">
+            <a href="https://github.com/eunsxx"><img height="100px" width="100px" src="https://avatars.githubusercontent.com/u/88652027?v=4"/></a>
+            <br />
+            <a href="https://github.com/eunsxx">eunsxx</a>
+        </td>
+        <td align="center" width="130px">
+            <a href="https://github.com/Bjimin"><img height="100px" width="100px" src="https://avatars.githubusercontent.com/u/96281320?v=4"/></a>
+            <br />
+            <a href="https://github.com/Bjimin">Bjimin</a>
+        </td>
     </tr>
 </table>
 
