@@ -71,6 +71,11 @@ RE:CODER는 멘토 멘티로 학습을 장려하는 스터디 소모임입니다
             <br />
             <a href="https://github.com/ohyeong">ohyeong</a>
         </td>
+        <td align="center" width="130px">
+            <a href="https://github.com/yeeunni"><img height="100px" width="100px" src="https://avatars.githubusercontent.com/u/96291952?v=4"/></a>
+            <br />
+            <a href="https://github.com/yeeunni">yeeunni</a>
+        </td>
     </tr>
 </table>
 
