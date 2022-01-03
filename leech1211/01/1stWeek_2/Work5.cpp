@@ -6,7 +6,10 @@ using namespace std;
 
 void bubble(int** arr, int last, int ArrSize)      //배열,요소의 개수,Arrsize
 {
-    int narr[last] = {0,};           //1차원 배열 선언
+    
+    //int narr[last] = {0,};           //이전코드
+    int *narr = new int[last]();       //1차원 배열 동적할당
+
     int k = 0;
     int temp;
     for(int i=0;i<ArrSize;i++)      //2차원배열을 
@@ -18,12 +21,7 @@ void bubble(int** arr, int last, int ArrSize)      //배열,요소의 개수,Arr
         }
     }
 
-    // cout<<"before sort"<<endl;
-    // for(int i=0;i<last;i++)
-    // {
-    //     cout<< narr[i] <<" ";
-    // }
-    // cout<<endl;
+   
 
     for(int i=0;i<last;i++)         //bubble sort
     {
@@ -51,6 +49,8 @@ void bubble(int** arr, int last, int ArrSize)      //배열,요소의 개수,Arr
         }
         cout<<endl;
     }
+
+    delete[] narr;                  //1차원 배열 메모리 해제
 
 }
 
