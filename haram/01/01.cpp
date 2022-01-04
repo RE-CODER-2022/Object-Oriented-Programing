@@ -21,7 +21,7 @@ int main(void) {
         int f = 0;
         while (1) {
             int check = 0;
-            f = ((int)rand() % 100);
+            f = ((int)rand() % 100+1);
             for (int j = 0; j < num; j++) {
                 if (f != arr[j])continue;
                 else if (f == arr[j]) {
@@ -39,7 +39,7 @@ int main(void) {
         if (i % enter == 0 && i != 0)
             cout << endl;
         cout.setf(ios::left);
-        cout << setfill(' ') << setw(4) << arr[i];
+        cout << setfill(' ') << setw(8) << arr[i];
     }
     cout << endl;
     bubbleSort(arr, num - 1);
@@ -49,6 +49,7 @@ int main(void) {
         cout.setf(ios::left);
         cout << setfill(' ') << setw(8) << arr[i];
     }
+    delete[] arr;
     cout << endl;
 }
 
