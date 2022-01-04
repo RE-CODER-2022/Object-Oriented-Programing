@@ -1,5 +1,7 @@
 #include<iostream>
+#include<random>
 using namespace std;
+
 void bubble(int *, int, int);
 
 void sorting(int * arr,int n){
@@ -20,16 +22,29 @@ void bubble(int * arr, int c, int n ){
 }
 
 int main(){
-    int n;
-
-    int arr[11*11]={0,};
+    int n,c;
+    random_device rd;
+    mt19937 gen(rd());
+    uniform_int_distribution<int> dis(0,99);
     cout<<"Array Size(0<N<11) : ";
     cin>>n;
+    int * arr = new int[n*n];
+    int k=0;
+    while(k!=n*n){
+        arr[k]=dis(gen);
+        for(int i=0; i<k; i++){
+            if(arr[k]==arr[i])
+                k--;
+        }
+        k++;
+    }
     for(int i=0; i<n; i++){
         for(int j=0; j<n; j++){
-            cin>>arr[i*n+j];
+            cout<<arr[i*n+j]<<'\t';
         }
+        cout<<endl;
     }
+    cout<<endl;
     sorting(arr,n*n);
     for(int i=0; i<n; i++){
         for(int j=0; j<n; j++){
@@ -37,4 +52,5 @@ int main(){
         }
         cout<<endl;
     }
+    delete [] arr;
 }
