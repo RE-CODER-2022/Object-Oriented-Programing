@@ -1,2 +1,6 @@
 # .vscode 폴더 삭제
 .vscode/
+
+# 실행파일 및 Makefile 삭제
+run
+Makefile
