@@ -29,13 +29,13 @@ void sender(char* data, char* datasum) {
     cin>>data;
     for (int i = 0; i < 5; i++) {
         if (i == 4) {
-            datasum[4] = sum % 10;
+            datasum[4] = (sum % 10)+48;
             break;
         }
         datasum[i] = data[i];
-        sum = sum + data[i]-48;
+        sum += data[i]-48;
     }
-    cout << "Send Data:";
+    cout << "Send Data: ";
     for (int i = 0; i < 5; i++)
         cout << datasum[i];
 }
@@ -50,9 +50,9 @@ void Transmission_Process(char* datasum, char* redata) {
         while (1) 
         {
             int a = 0;
-            a = rand() & 4;
+            a = rand() & 4; //0~3까지
             int b = 0;
-            b = rand() & 10;
+            b = rand() & 10;//0~9까지
             for (int i = 0; i < 5; i++)
             {
                 if (a == i)
@@ -62,7 +62,7 @@ void Transmission_Process(char* datasum, char* redata) {
                         continue;
                     }
                     else
-                        redata[i] = b;
+                        redata[i] = b+48;
                 }
                 else
                     redata[i] = datasum[i];
@@ -79,7 +79,7 @@ void Transmission_Process(char* datasum, char* redata) {
 }
 //전송받은 데이터의 에러 발생 유무 판단
 void Receiver(char* datasum, char* redata) {
-    cout << "Received Data:";
+    cout << "Received Data: ";
     if (num == 0) {
         for (int i = 0; i < 5; i++)
             cout << redata[i];
@@ -89,7 +89,7 @@ void Receiver(char* datasum, char* redata) {
     else {
         int sum = 0;
         for (int i = 0; i < 4; i++)
-            sum = sum + redata[i]-48;
+            sum += redata[i]-48;
         for (int i = 0; i < 5; i++)
             cout << redata[i];
         cout << endl << datasum[4] << "!=" << sum % 10;
