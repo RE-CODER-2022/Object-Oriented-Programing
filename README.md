@@ -82,3 +82,8 @@ RE:CODER는 멘토 멘티로 학습을 장려하는 스터디 소모임입니다
 ---
 ## PR 규칙
 [💡Pull Request 하는 법이 생각이 안난다면?](https://solstice-hotel-6b8.notion.site/0d791f83057b4c20b26f9663019fcbad)
+
+---
+## Vscode 사용법
+
+[💡vscode 사용법을 모르면?](https://solstice-hotel-6b8.notion.site/VSCODE-28fad54926c24e44b1b06615d071f36a)
