@@ -42,7 +42,7 @@ void Transmission_Process(char * arrpchecksum){ //40퍼센트 확률로 오류 �
         r=dist(gen);
 
     switch(dist(gen)){
-        case 0: case 1: case 2: case 3: arrpchecksum[m]=r+48; break; //40퍼센트로 배열의 끝에 답과 다른 숫자(위 while에서 생성함) 입력
+        case 0: case 1: case 2: case 3: arrpchecksum[m]=r+48; break; //40퍼센트로 배열의 위치 중 하나에 기존과 다른 숫자(위 while에서 생성함) 입력
         default: break;
     }
     
