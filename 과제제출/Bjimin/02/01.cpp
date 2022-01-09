@@ -33,14 +33,16 @@ void Sender(){ //4자리 수 입력받고, checksum덧붙이기
 void Transmission_Process(char * arrpchecksum){ //40퍼센트 확률로 오류 생성
     random_device rd;
     mt19937 gen(rd());
-    uniform_int_distribution<int> dis(0,9);
-
-    int n=arrpchecksum[4]-48,r=dis(gen);
+    uniform_int_distribution<int> dis(0,4);
+    uniform_int_distribution<int> dist(0,9);
+    int m=dis(gen); //랜덤으로 5자리중 하나 선택
+    int n=arrpchecksum[m]-48;
+    int r=dist(gen);
     while(n==r)
-        r=dis(gen);
+        r=dist(gen);
 
-    switch(dis(gen)){
-        case 0: case 1: case 2: case 3: arrpchecksum[4]=r+48; break; //40퍼센트로 배열의 끝에 답과 다른 숫자(위 while에서 생성함) 입력
+    switch(dist(gen)){
+        case 0: case 1: case 2: case 3: arrpchecksum[m]=r+48; break; //40퍼센트로 배열의 끝에 답과 다른 숫자(위 while에서 생성함) 입력
         default: break;
     }
     
@@ -64,5 +66,5 @@ void Receiver(char * array){ //Tr_P에서 받은 배열의 checksum이 올바른
         cout<<checksum<<"!="<<array[4];
         cout<<"    Error!"<<endl;
     }
-
-}
+    delete [] array;
+} 
