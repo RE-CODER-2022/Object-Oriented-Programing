@@ -38,7 +38,7 @@ void Sender()        //암호화
    
 }
 
-int Transmission_Process(const char* data)
+void Transmission_Process(const char* data)
 {
     int error;          //에러가 날 확률
     int wrongChecksum;  //잘못된 checksum 
@@ -92,7 +92,7 @@ int Transmission_Process(const char* data)
     delete[] temp2;
 }
 
-int Receiver(const char* data)
+void Receiver(const char* data)
 {
     int checksum;       //checksum 계산
     checksum = (int(data[0])-48) + (int(data[1])-48) + (int(data[2])-48) + (int(data[3])-48);   
