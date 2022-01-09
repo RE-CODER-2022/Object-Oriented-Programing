@@ -4,8 +4,8 @@
 using namespace std;
 
 void Sender();
-int Transmission_Process(const char* data);
-int Receiver(const char* data);
+void Transmission_Process(const char* data);
+void Receiver(const char* data);
 
 
 int main()
@@ -30,7 +30,7 @@ void Sender()        //암호화
         checksum = checksum % 10;
     }
     
-    input[4] = (char)checksum + 48;   
+    input[4] = (char)checksum + 48;   //맨뒷자리 checksum 추가
  
     cout<<"Send Data:"<<input<<endl;
     Transmission_Process(input);
@@ -41,7 +41,8 @@ void Sender()        //암호화
 void Transmission_Process(const char* data)
 {
     int error;          //에러가 날 확률
-    int wrongChecksum;  //잘못된 checksum 
+    int wrongnum;       //잘못된 숫자 
+    int index;          //몇번째 숫자가 변경될지 랜덤으로 결정되는 요소
     char temparr[5];   //const로 전달된 data를 다루기 위한 임시배열
 
     char* temp2 = new char[5];
@@ -51,42 +52,29 @@ void Transmission_Process(const char* data)
     {
         temparr[i] = data[i];
     }
+
     srand((unsigned int)time(NULL));    //seed값으로 현재시간 부여  
-    error = rand() % 10;        
-    do                                  //checksum을 대체할 새로운 checksum을 랜덤으로 만들되, 기존의 checksum과 같지않게
-    {
-        wrongChecksum = rand() % 10;
-    }while(wrongChecksum == (int)temparr[4] + 48);
+    error = rand() % 10;                //에러가 날 확률
+    index = rand() % 4;                 //에러가 날 경우 바뀌게 될 인덱스
+    wrongnum = rand() % 10;             //wrongnum 생성
     
-
-    //cout<<"error: "<<error << endl;
-
+    
     if(error <= 3)  //0~9 10개의 숫자중에 0,1,2,3 네개의 숫자에 해당되는 경우 즉 40%의 확률
     {
-        temparr[4] = (int)wrongChecksum + 48;
-    }
-    //cout<<"wrongChecksum: "<< wrongChecksum <<endl;
-    //cout<<"temparr: "<<endl;
+        do                                              //에러로 인해 랜덤으로 결정된 숫자가 기존 숫자와 같을 경우
+        {                                               //즉 에러로 인해 4라는 숫자를 대신할 숫자가 랜덤으로 4가 결정되었을때
+             wrongnum = rand() % 10;                    //숫자를 다시 랜덤으로 재설정
+        }while(temparr[index] == (int)wrongnum + 48);
 
-    // for(int i=0;i<5;i++)     //temparr 확인
-    // {
-    //     cout<<temparr[i];
-    // }
-    // cout<<"temparr0: "<<temparr[0]<<endl;
-    // cout<<"temparr1: "<<temparr[1]<<endl;
-    // cout<<"temparr2: "<<temparr[2]<<endl;
-    // cout<<"temparr3: "<<temparr[3]<<endl;
-    // cout<<"temparr4: "<<temparr[4]<<endl;
+        temparr[index] = (int)wrongnum + 48;            //랜덤으로 정해진 자리에 worngnum으로 대체
+    }
+    
 
     for(int i=0;i<5;i++)                //temp2로 temparr복사
     {
         temp2[i] = temparr[i];
     }
-    //cout<<"temp2: "<<endl;
-    // for(int i=0;i<5;i++)                //temp2로 temparr복사
-    // {
-    //     cout<<temp2[i]; 
-    // }
+  
 
     Receiver(temp2);     //Receiver로 전달
     delete[] temp2;
