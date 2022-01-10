@@ -24,7 +24,7 @@ int main()
 }
 //입력받은 데이터를 checksum
 void sender(char* data, char* datasum) {
-    int sum=0;
+    int sum = 0;
     cout << "Data : ";
     cin >> data;
     for (int i = 0; i < 5; i++) {
@@ -50,14 +50,14 @@ void Transmission_Process(char* datasum, char* redata) {
         while (1)
         {
             int a = 0;
-            a = rand() & 4; //0~3까지
+            a = rand() & 5; //0~4까지
             int b = 0;
             b = rand() & 10;//0~9까지
             for (int i = 0; i < 5; i++)
             {
                 if (a == i)
                 {
-                    if (b == datasum[i])
+                    if (b == datasum[i]-48)
                     {
                         continue;
                     }
@@ -67,8 +67,8 @@ void Transmission_Process(char* datasum, char* redata) {
                 else
                     redata[i] = datasum[i];
             }
-            if(a==4)
-                num=2;
+            if (a == 4)
+                num ++;
             break;
         }
     }
@@ -88,13 +88,13 @@ void Receiver(char* datasum, char* redata) {
         cout << endl << redata[4] << "==" << redata[4];
         cout << "    Error is not Occured!";
     }
-    else if (num==2) {
+    else if (num == 2) {
         for (int i = 0; i < 5; i++)
             cout << redata[i];
         cout << endl << datasum[4] << "!=" << redata[4];
         cout << "    Error!";
     }
-    else{
+    else {
         int sum = 0;
         for (int i = 0; i < 4; i++)
             sum += redata[i] - 48;
