@@ -28,6 +28,7 @@ void Sender() {
 	}
 	cout << endl;
 	Transmission_Process(data);
+	delete[] data;
 }
 
 void Transmission_Process(const char* data) {
@@ -49,6 +50,7 @@ void Transmission_Process(const char* data) {
 		rcidata[num] = (char)isntnum + '0';
 	}
 	Receive(rcidata);
+	delete[] rcidata;
 }
 
 void Receive(const char* data) {
