@@ -41,7 +41,7 @@ void Transmission_Process(const char* data) {
 	}
 
 	if (num1 == 0 || num1 == 1 || num1 == 2 || num1 == 3) {
-		int num = rand() % 4;
+		int num = rand() % 5;
 		int isntnum = 0;
 		do {
 			isntnum = rand() % 10;
