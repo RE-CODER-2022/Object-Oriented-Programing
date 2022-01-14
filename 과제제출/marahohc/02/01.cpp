@@ -14,14 +14,14 @@ int main(void) {
 	return 0;
 }
 void Sender() {
-	char *data = new char[6];
+	char* data = new char[6];
 	int sum = 0;
 	cout << "Data : ";
 	for (int i = 0; i < 4; i++) {
 		cin >> data[i];
 		sum = (sum + (data[i] - '0')) % 10;
 	}
-	data[4] = (char)sum+'0';
+	data[4] = (char)sum + '0';
 	cout << "Send Data:";
 	for (int i = 0; i < 5; i++) {
 		cout << data[i];
@@ -34,7 +34,7 @@ void Sender() {
 void Transmission_Process(const char* data) {
 	srand((int)time(NULL));
 	char* rcidata = new char[6];
-	int num1 = rand()%10;
+	int num1 = rand() % 10;
 
 	for (int i = 0; i < 5; i++) {
 		rcidata[i] = data[i];
@@ -58,14 +58,14 @@ void Receive(const char* data) {
 	for (int i = 0; i < 4; i++) {
 		sum = (sum + (data[i] - '0')) % 10;
 	}
-	if ((int)data[4]-'0' == sum) {
+	if ((int)data[4] - '0' == sum) {
 		cout << "Received Data:";
 		for (int i = 0; i < 5; i++) {
 			cout << data[i];
 		}
 		cout << endl << data[4] << "==" << sum << "    Error is not Occured!";
 	}
-	else if ((int)data[4]-'0' != sum) {
+	else if ((int)data[4] - '0' != sum) {
 		cout << "Received Data:";
 		for (int i = 0; i < 5; i++) {
 			cout << data[i];
