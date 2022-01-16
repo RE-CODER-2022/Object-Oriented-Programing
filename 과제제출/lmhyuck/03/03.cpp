@@ -13,17 +13,19 @@ private:
 
 public:
     University(){}
+    // 학번을 반환하는 메소드
     char* saveID() {
         return U_StuID;
     }
     int saveUyear() {
         return year;
     }
+    //입력받은 학교명,학번,학년을 저장하는 메소드
     void GiveInfo1(char* _U_Name, char* _U_StuID, int _year) {
         strcpy(U_Name, _U_Name);
         strcpy(U_StuID, _U_StuID);
         year = _year;
-    }
+    }//학교명,학번,학년 출력 메소드
     void ShowInfo1() {
         cout << "학교: " << U_Name << endl;
         cout << "학번: " << U_StuID << endl;
@@ -44,10 +46,11 @@ public:
     char saveDLC() {
         return Digital_Logic_Circuit;
     }
+    //입력받은 객프,디논 학점 저장
     void GiveInfo2(char oop ,char dlc) {
         Object_Oriented_Programing = oop;
         Digital_Logic_Circuit = dlc;
-    }
+    }//객프,디논 학점 출력
     void ShowInfo2() {
         cout << "객체지향프로그래밍 학점: " << Object_Oriented_Programing << endl;
         cout << "디지털논리회로 학점: " << Digital_Logic_Circuit << endl;
@@ -88,12 +91,13 @@ public:
         strcpy(Name, name);
         age = Age;
     }
+    //학생이름 비교하는 메소드
     int CmpName(char* _name) {
         return strcmp(_name, Name);
-    }
+    }//학번 비교하는 메소드
     int CmpId(char* _id) {
         return strcmp(_id, saveID());
-    }
+    }// 학생 정보를 찾는 메소드
     int CmpInfo(char *name, char*id) {
         int i = CmpName(name);
         if (i == 0) {
