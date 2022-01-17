@@ -6,9 +6,9 @@ using namespace std;
 class University {
 
 private:
-    char U_Name[20]={};
+    char U_Name[20]={'\0'};
     int year=0;
-    char U_StuID[20]={};
+    char U_StuID[20]={'\0'};
 
 public:
     University(){}
@@ -35,8 +35,8 @@ public:
 
 class ComInfo :public University {
 private:
-    char Object_Oriented_Programing;
-    char Digital_Logic_Circuit;
+    char Object_Oriented_Programing='\0';
+    char Digital_Logic_Circuit='\0';
 
 public:
     char saveOOP() {
@@ -58,19 +58,19 @@ public:
 
 class StuInfo :public ComInfo {
 private:
-    char Name[10]={};
+    char Name[10]={'\0'};
     int age = 0;
 
 public:
     int Age = 0; 
     StuInfo() { };
     void InputInfo() {
-        char uname[20];
-        char id[20];
+        char uname[20]={'\0'};
+        char id[20]={'\0'};
         int uyear = 0;
-        char OOP;
-        char DLC;
-        char name[10];
+        char OOP='\0';
+        char DLC='\0';
+        char name[10]={'\0'};
         cout << "학교 :";
         cin >> uname;
         cout << "학번: ";
@@ -116,6 +116,9 @@ int main()
     StuInfo **stu=new StuInfo*[100];
     int input = 0;
     int sum = 0;
+    for(int n=0;n<100;n++){
+        stu[n] = new StuInfo();
+    }
     string arr1 = "INSERT";
     string arr2 = "FIND";
     string arr3 = "EXIT";
@@ -167,6 +170,9 @@ int main()
             cout << endl;
             break;
         }
+    }
+    for(int n=0;n<100;n++){
+        delete stu[n];
     }
 }
 
