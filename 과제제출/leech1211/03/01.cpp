@@ -22,6 +22,10 @@ public:
     {
 
     }
+    char* GetID2()                                                    
+    {
+        return U_StuID;
+    }
     char GetID() const                                                          //acess function
     {
         return *U_StuID;
@@ -110,6 +114,11 @@ public:
     {
 
     }
+    char* GetName2()                                                    
+    {
+        return Name;
+    }
+
     char GetName() const                                                   //acess function
     {
         //cout << Name <<endl;
@@ -122,6 +131,22 @@ public:
    
     
 };
+
+int Findinfo(const char* find, const char* obj)
+{
+    if(strcmp(find,obj) == 0)
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+    
+}
+
+
+
 
 
 
@@ -149,6 +174,8 @@ int main()
     /*FIND시 이용하는 변수*/
     char FindName[10];                  //이름 
     char FindId[20];                    //학번
+ 
+ 
     
     
 
@@ -193,9 +220,9 @@ int main()
 
             for(int i=0; i < arrindex; i++)
             {
-                if(arr[i].GetName() == *FindName)           //해당이름을 찾기
+                if(Findinfo(FindName, arr[i].GetName2()))           //해당이름을 찾기
                 {
-                    if(arr[i].GetID() == *FindId)           //해당 학번도 맞는지 확인
+                    if(Findinfo(FindId, arr[i].GetID2()))           //해당 학번도 맞는지 확인
                     {
                         cout << endl;
                         cout << endl;
@@ -210,10 +237,10 @@ int main()
                 }
             }
         }
-        else
-        {
+        else{
             break;
         }
+        
     }  
 
    return 0;
