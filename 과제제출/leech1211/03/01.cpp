@@ -22,7 +22,7 @@ public:
     {
 
     }
-    char* GetID2()                                                    
+    char* GetID2()                                                              //FIND시 사용하는 생성자                                     
     {
         return U_StuID;
     }
@@ -114,7 +114,7 @@ public:
     {
 
     }
-    char* GetName2()                                                    
+    char* GetName2()                                                        //FIND시 사용하는 생성자
     {
         return Name;
     }
