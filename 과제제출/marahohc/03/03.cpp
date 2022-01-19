@@ -120,4 +120,5 @@ int main(void) {
         else if(kase=="EXIT")
             return 0;
     }
+    delete[] stu;
 }
