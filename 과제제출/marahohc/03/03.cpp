@@ -15,9 +15,9 @@ class Univ {
     int getUyear(){return year;}
     void setUall(char *UNAME,char *USTUID,int YEAR) {strcpy(U_Name,UNAME),strcpy(U_StuID,USTUID),year = YEAR;}
     void PrintUniv(){
-        cout<<U_Name<<endl;
-        cout<<U_StuID<<endl;
-        cout<<year<<endl;
+        cout<<endl<<endl<<"학교:"<<U_Name<<endl;
+        cout<<"학번:"<<U_StuID<<endl;
+        cout<<"학년:"<<year<<endl;
     }
 };
 
@@ -31,8 +31,8 @@ class ComInfo :public Univ {
     char getDLCInfo(){return Digital_Logic_Circuit;}
     void setComInfo(char OOP,char DLC){Object_Oriented_Programing = OOP, Digital_Logic_Circuit = DLC;}
     void PrintComInfo(){
-        cout<<Object_Oriented_Programing<<endl;
-        cout<<Digital_Logic_Circuit<<endl;
+        cout<<"객체지향프로그래밍 학점:"<<Object_Oriented_Programing<<endl;
+        cout<<"디지털논리회로 학점: "<<Digital_Logic_Circuit<<endl;
     }
 };
 
@@ -117,8 +117,10 @@ int main(void) {
             if(j==0)
                 cout<<"없는 학생입니다. 다시 입력해주세요."<<endl;
         }
-        else if(kase=="EXIT")
+        else if(kase=="EXIT"){
+            delete[] stu;
             return 0;
+        }
     }
     delete[] stu;
 }
