@@ -192,7 +192,8 @@ int main()
     }
     for(int i =0 ; i<100;i++)
     {
-        delete INFORM[i];
+        delete [] INFORM[i];
     }
+    delete [] INFORM;
     return 0;
 }
