@@ -76,7 +76,7 @@ public:
 
     }
 
-    void shootrevolver(){                       //총 발사, head옮기고 그전head 없애고 다시 연결
+    void shootrevolver(){                       //총 발사, head를 nextnode로 이동
         Node * curnode = head;
         head = head->get_next();
     }
