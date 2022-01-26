@@ -78,7 +78,7 @@ public:
         Node* check = head;                 //node들을 확인하기위한 node
         while(check != NULL)
         {
-            if(check->Getdata() == x)       //Already exit
+            if(!strcasecmp(check->Getdata().c_str(),x.c_str()))       //Already exit
             {
                 return 1;
             }            
