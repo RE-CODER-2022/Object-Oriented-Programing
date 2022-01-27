@@ -33,13 +33,7 @@ public:
             Node* curr = head;
             while (curr != nullptr) {
                 //대소문자 관계없이 중복 단어 골라내기
-                if(data[0] > 64 && data[0] < 91){
-                    data[0]=data[0]+32;
-                    a = strcmp(curr->get_word(), data);
-                    data[0]=data[0]-32; 
-                    }
-                else
-                    a = strcmp(curr->get_word(), data);
+                a = strcasecmp(curr->get_word(), data);
                 if (a == 0) {
                     cout << "Already Exist" << endl;
                     return a;
@@ -68,23 +62,47 @@ public:
         int len = strlen(inst_prev->get_word());
         //대소문자 관계없이 진행하기 위함
         if(data[0] > 64 && data[0] < 91){
-            if (inst_prev->get_word()[len - 1] == data[0]+32){
-                inst_prev->next = inst;
-                n = 1;
+            if(inst_prev->get_word()[len - 1]> 64 && inst_prev->get_word()[len - 1] < 91){
+                if (inst_prev->get_word()[len - 1] == data[0]){
+                    inst_prev->next = inst;
+                    n = 1;
+                }
+                else {
+                    cout << "Not Chained" << endl;
+                    n = 0;
+                }  
             }
-            else {
-            cout << "Not Chained" << endl;
-            n = 0;
-            }   
+            else{
+                if (inst_prev->get_word()[len - 1] == data[0]+32){
+                    inst_prev->next = inst;
+                    n = 1;
+                }
+                else {
+                    cout << "Not Chained" << endl;
+                    n = 0;
+                }
+            }
         }
         else{
-            if (inst_prev->get_word()[len - 1] == data[0]){
-                inst_prev->next = inst;
-                n = 1;
+            if(inst_prev->get_word()[len - 1]> 64 && inst_prev->get_word()[len - 1] < 91){
+                if (inst_prev->get_word()[len - 1] == data[0]-32){
+                    inst_prev->next = inst;
+                    n = 1;
+                }
+                else {
+                    cout << "Not Chained" << endl;
+                    n = 0;
+                }
             }
-            else {
-            cout << "Not Chained" << endl;
-            n = 0;
+            else{
+                if (inst_prev->get_word()[len - 1] == data[0]){
+                    inst_prev->next = inst;
+                    n = 1;
+                }
+                else {
+                    cout << "Not Chained" << endl;
+                    n = 0;
+                }
             }
         }
     }
