@@ -56,13 +56,18 @@ public:
                     break;
                 } //빠져나왔을 경우엔, 지금 curnode보다 사전순으로 앞에 있는 경우 또는 같을 경우
             }
-            if(curnode == head){ //처음에 넣어야 하는 경우
-                head = newnode;
-                newnode->next = curnode;
-                newnode->setword(wordin);
-            }
-            else if(curnode==NULL || strcmp(curnode->getword().c_str(), wordin.c_str())>0){
-                    if(curnode==NULL){//마지막노드일 경우
+
+            
+            if(curnode==NULL || strcmp(curnode->getword().c_str(), wordin.c_str())>0){ //순서주의
+                    
+
+                    if(curnode == head){ //처음에 넣어야 하는 경우
+                        head = newnode;
+                        newnode->next = curnode;
+                        newnode->setword(wordin);
+                    }
+                    
+                    else if(curnode==NULL){//마지막노드일 경우
                         prvnode->next = newnode;
                         newnode->next = NULL;
                         newnode->setword(wordin);
@@ -74,10 +79,15 @@ public:
                         newnode->setword(wordin);
                     }
 
+                    
+
 
                 }
+
             else if(strcmp(curnode->getword().c_str(), wordin.c_str())==0)//중복일 경우 아무것도 안함.
                 delete newnode;
+
+
 
 
         }
@@ -119,13 +129,13 @@ public:
         Node* curnode = head;
         Node* delnode;
         Node* prvnode = NULL;
-        while(curnode->getword() != wordd){
+        while(curnode!=NULL && curnode->getword() != wordd){ //순서주의
 
             prvnode = curnode;
             curnode = curnode->next;
         }
 
-        if(curnode!=NULL){ //아무것도 없지 않을 때
+        if(curnode!=NULL){ //없지 않을 때
             delnode = curnode;
             curnode = curnode->next;
 
@@ -138,15 +148,17 @@ public:
             }
 
             delete delnode;
+
+            int indx = 0;
+            curnode = head;
+            while(curnode){
+                cout<<indx<<". "<<curnode->getword()<<endl;
+                curnode = curnode->next;
+                indx++;
+            }
         }
-
-
-        int indx = 0;
-        curnode = head;
-        while(curnode){
-            cout<<indx<<". "<<curnode->getword()<<endl;
-            curnode = curnode->next;
-            indx++;
+        else if(curnode==NULL){
+            cout<<"Not found"<<endl;
         }
 
     }
