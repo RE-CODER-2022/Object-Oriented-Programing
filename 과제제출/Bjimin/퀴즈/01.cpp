@@ -20,7 +20,7 @@ private:
     Node* head;
 
 public:
-    List(){ head = nullptr; }
+    List(){ head = NULL; }
     ~List(){
         Node* curnode = head;
         Node* delnode;
@@ -47,7 +47,6 @@ public:
         }
 
         else{
-            
             while(curnode != NULL){
                 if(strcmp(curnode->getword().c_str(), wordin.c_str())<0){//word<wordin이면 음수, 같으면 0, word>wordin이면 양수 반환됨
                     prvnode = curnode;
@@ -57,8 +56,12 @@ public:
                     break;
                 } //빠져나왔을 경우엔, 지금 curnode보다 사전순으로 앞에 있는 경우 또는 같을 경우
             }
-
-            if(strcmp(curnode->getword().c_str(), wordin.c_str())>0 || curnode==NULL){
+            if(curnode == head){ //처음에 넣어야 하는 경우
+                head = newnode;
+                newnode->next = curnode;
+                newnode->setword(wordin);
+            }
+            else if(curnode==NULL || strcmp(curnode->getword().c_str(), wordin.c_str())>0){
                     if(curnode==NULL){//마지막노드일 경우
                         prvnode->next = newnode;
                         newnode->next = NULL;
@@ -105,7 +108,7 @@ public:
         }
 
         if(curnode!=NULL){
-            cout<<index<<". "<<wordf;
+            cout<<index<<". "<<wordf<<endl;
         }
         else{
             cout<<"Not found"<<endl;
@@ -156,10 +159,9 @@ int main(){
     string command;
     string word;
 
-    cin>>command;
-
     List * list = new List;
     while(true){
+        cin>>command;
         if(command=="INSERT"){
             cin>>word;
             list->InsertNode(word);
