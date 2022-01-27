@@ -72,15 +72,16 @@ public:
                             return;
                         }
                     }
-                    else{
+                    else {
                         curr = curr->next;
                         count++;
+                    }
                 }
             }
         }
     }
     //단어를 찾고 출력하는 메소드
-    void FindWord(char* data){
+    void FindWord(char* data) {
         Node* curr = head;
         int i = 0;
         while (curr != nullptr) {
@@ -158,16 +159,16 @@ int main() {
     string arr2 = "FIND";
     string arr3 = "DELETE";
     string arr4 = "END";
-    if (arr == arr1)
-        input = 1;
-    else if (arr == arr2)
-        input = 2;
-    else if (arr == arr3)
-        input = 3;
-    else
-        input = 4;
     while (1) {
         cin >> arr;
+        if (arr == arr1)
+            input = 1;
+        else if (arr == arr2)
+            input = 2;
+        else if (arr == arr3)
+            input = 3;
+        else
+            input = 4;
         switch (input) {
         case 1:
             cin >> data;
@@ -185,6 +186,7 @@ int main() {
             break;
         case 4:
             input = 5;
+            break;
         }
         if (input == 5)
             break;
