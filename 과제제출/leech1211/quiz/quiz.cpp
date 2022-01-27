@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstring>
 using namespace std;
 
 class Node {
@@ -18,10 +19,11 @@ private:
 public:
     Node* head;
     Node* cur;
+    Node* pre;
 
     List() {head = NULL;}
 
-    void Insert(string x, int i)
+    int Insert(string x, int i)
     {
         Node* newNode = new Node();
         int curIndex = 1;
@@ -30,21 +32,74 @@ public:
         newNode ->sequence = i;
         newNode -> next = NULL;
 
-        if(head == NULL)
+        if(head == NULL)        //첫 입력
         {
             head = newNode;
         }
+/*-------------------------------------------------------------------------------------------------------------------
+커맨드를 다 짜고나서 정렬해주는 코드를 넣어주려고 하니 이미 짜놓은 틀에 맞추어 주려고 코드가 못생겼습니다
+예외처리를 일일이 해줬는데 아직 더 숨어있는 오류가 있을수도 ㅜㅜㅜ
+그리고 코드 다짰다가 뭐 잘못해서 다 날아가서 다시 짠거라 가지구 오류있으면 피드백 부탁드립니다*/
         else
         {
             cur = head;
-            while(cur && i > curIndex)
+            //cout << i << endl;
+            while((cur && i > curIndex) || i == 1)           
             {
-                cur = cur->next;
+                if(cur->Getdata() > x)          //사전식 정렬
+                {
+                    pre = cur;
+                    if(cur == head)             //맨처음으로 들어갈경우
+                    {
+                        head = newNode;         
+                        newNode->next = cur;
+                        return 0;
+                    }
+                    else                        //중간에 들어가는 경우
+                    {
+                        pre->next = newNode;
+                        newNode->next = cur;
+                        //cur->next = NULL;
+                        return 0;
+                    }             
+                }
+                if(i == 1)
+                {
+                    break;
+                }
+                if(i >= 2)
+                {
+                    
+                    cur = cur->next;
+                }
                 curIndex++;
+
+                
             }
             cur->next = newNode;
         }
         
+    }
+
+    void NumberSort(int n)                           //숫자 재정렬
+    {
+        Node* cur = head;
+        int k=0;
+
+        // for (int k = 0; k <= n; k++)
+        // {
+        //     //cout << "asd" << endl;
+        //     cur->sequence = k;
+        //     cur = cur->next;
+        // }
+        while(cur != NULL)
+        {
+            cur->sequence = k;
+            cur = cur->next;
+            k++;
+        }
+
+       
     }
 
     int Delete(string x)
@@ -60,15 +115,17 @@ public:
                 {
                     head = pre->next;
                 }
+                
                 delete cur;
                 return 0;
-                break;
+                
+                
             }
             pre = cur;
             cur = cur->next;
         }
         cout << "Not Found" << endl;
-        
+
     }
 
     void Show()
@@ -105,54 +162,18 @@ public:
         Node* check = head;
         while(check != NULL)
         {
-            if(x == check->Getdata())       //이미 단어가 있다면 
+            if( !strcmp(x.c_str(), check->Getdata().c_str()))       //이미 단어가 있다면 
             {
-                return 0;
+                return 0;   //같은경우
             }
             else
             {
-                return 1;
+                return 1;   //다른경우
             }
             check = check->next;
         }
         return 1;
     }
-
-    // void Sort(int n)                             //사전순으로 정렬
-    // {
-    //     Node* check = head;
-    //     Node* temp;
-    //     int numtemp;
-    //     for(int i=0;i<n;i++)
-    //     {
-    //         check = head;
-    //         for(int j=0;j<n;j++)
-    //         {
-    //             if(check > check->next)
-    //             {
-    //                 temp = check;
-    //                 check = check->next;
-    //                 check->next = temp;
-    //             }
-    //             check = check->next;
-    //         }
-    //     }
-
-    //     for(int i=0;i<n;i++)                     //숫자도 정렬
-    //     {
-    //         check = head;
-    //         for(int j=0;j<n;j++)
-    //         {
-    //             if(check->sequence > check->next->sequence)
-    //             {
-    //                 numtemp = check->sequence;
-    //                 check->sequence = check->next->sequence;
-    //                 check->next->sequence = numtemp;
-    //             }
-    //             check = check->next;
-    //         }
-    //     }
-    // }
 
 };
 
@@ -176,7 +197,7 @@ int main()
             delete Diction;
             return 0;
         }
-
+    
         cin >> word;
         
         if(commend == C_insert)
@@ -188,27 +209,33 @@ int main()
             }
             else                                    //없는 단어라면
             {         
-                Diction -> Insert(word,num);    
-                //Diction -> Sort(num);               //정렬           
+                Diction -> Insert(word,num);   
+                //cout << "INSERT" << endl;
+                Diction -> NumberSort(num);         
                 Diction -> Show();                
             }
-            num++;            
+            
+                      
         }
         else if(commend == C_find)
         {
             Diction->Find(word);
         }
-        else if(commend == C_delete)        //오류  
+        else if(commend == C_delete)        
         {
             Diction->Delete(word);
+            num--;
+            Diction -> NumberSort(num);  
             Diction->Show();
         }
+        num++;
+       
     }
     
 
     delete Diction;
-    //숫자 바꿔주기
-    //사전순으로 재배치
+    //DELETE에 세그폴트
+   
     
 
 
