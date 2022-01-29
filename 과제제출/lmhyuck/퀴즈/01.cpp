@@ -149,7 +149,6 @@ public:
         cout << endl;
     }
 };
-
 int main() {
     List* list = new List();
     char data[20] = { "\0" };
