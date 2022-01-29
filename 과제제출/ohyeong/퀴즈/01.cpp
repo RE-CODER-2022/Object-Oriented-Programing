@@ -188,7 +188,7 @@ int main()
                     list.PrintNode();
                 }
                 else
-                    continue;
+                    list.PrintNode();
             }
             
         }
