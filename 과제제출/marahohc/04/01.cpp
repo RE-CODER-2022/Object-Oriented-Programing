@@ -24,7 +24,7 @@ private:
     Node* head;
 public:
     List(void) { head = NULL; }
-    //~List(void); // 소멸자
+    ~List(void);
     void InsertNode(char* word);
     void DisplayList();
     Node* gethead() { return head; }
@@ -119,6 +119,19 @@ int List::Compare(char* curword) {
     }
 }
 
+List::~List(){
+    Node* temp1 = head;
+    if(temp1 == NULL)
+        return;
+    Node* temp2 = temp1->getnext();
+    while(temp1 != NULL){
+        cout<<temp1->getword()<<"삭제"<<endl;
+        delete[] temp1;
+        temp1 = temp2;
+        if(temp2 != NULL)
+            temp2 = temp2->getnext();
+    }
+}
 
 int main(void) {
     List* list = new List;
@@ -127,8 +140,11 @@ int main(void) {
     cout << "CMD(Word/exit)>>";
     cin >> instword;
     comp = strcmp(instword, "exit");
-    if (comp == false)
+    if (comp == false){
+        delete[] instword;
+        delete list;
         return 0;
+    }
     list->InsertNode(instword);
     list->DisplayList();
     while (1) {
@@ -137,7 +153,7 @@ int main(void) {
         cin >> instword;
         comp = strcmp(instword, "exit");
         if (comp == false)
-            return 0;
+            break;
         else if (comp == true)
         {
             int i = 0;
@@ -154,5 +170,5 @@ int main(void) {
         }
     }
     delete[] instword;
-    delete[] list;
+    delete list;
 }
