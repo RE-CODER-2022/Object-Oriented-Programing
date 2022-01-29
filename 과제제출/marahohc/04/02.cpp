@@ -30,6 +30,7 @@ public:
         head = NULL;
         tail = NULL;
     }
+    ~List(void);
     void MakeRevolver() {
         head = new Bullet;
         head->setbullet(1);
@@ -56,7 +57,6 @@ public:
             return 0;
         }
     }
-
     void Rotate() {
         srand((unsigned int)time(NULL));
 
@@ -66,6 +66,18 @@ public:
         }
     }
 };
+
+List::~List(){
+        Bullet *temp1 = head;
+        if(temp1 == NULL)
+            return;
+        Bullet* temp2 = temp1->getnext();
+        while(temp1 != NULL){
+            delete temp1;
+            temp1 = temp2;
+            temp2 = temp1->getnext();
+        }
+    }
 
 int main(void) {
     char* command = new char;
@@ -91,5 +103,7 @@ int main(void) {
             cout << "Wrong Command!" << endl;
         }
     }
+    delete[]  command;
+    delete list;
     return 0;
 }
