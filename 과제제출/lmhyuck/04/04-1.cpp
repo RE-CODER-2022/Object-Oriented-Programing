@@ -119,9 +119,9 @@ public:
         Node* temp=head;
         while(head){
             temp=head;
+            head=head->next;
             delete temp;
             temp=nullptr;
-            head=head->next;
         }
         head=nullptr;
     }

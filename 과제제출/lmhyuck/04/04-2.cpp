@@ -10,7 +10,7 @@ class Node {
 private:
     int Data = 0;
 public:
-    Node* next= NULL;
+    Node* next;
     Node() { next = nullptr; }
     void setdata(int data) {
         Data = data;
@@ -61,9 +61,9 @@ public:
         Node* temp=head;
         while(head){
             temp=head;
+            head=head->next;
             delete temp;
             temp=nullptr;
-            head=head->next;
         }
         head=nullptr;
     }
