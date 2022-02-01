@@ -7,7 +7,7 @@ class Node {
 private:
     char Data[20] = { '\0' };
 public:
-    Node* next;
+    Node* next=nullptr;
     void set_word(char* data) {
         strcpy(Data, data);
     }
@@ -31,7 +31,7 @@ public:
         }
         else {
             Node* curr = head;
-            while (curr != nullptr) {
+            while (curr) {
                 //대소문자 관계없이 중복 단어 골라내기
                 a = strcasecmp(curr->get_word(), data);
                 if (a == 0) {
@@ -56,7 +56,7 @@ public:
             return;
         }
         Node* inst_prev = head;
-        while (inst_prev->next != nullptr) {
+        while (inst_prev->next) {
             inst_prev = inst_prev->next;
         }
         int len = strlen(inst_prev->get_word());
@@ -115,7 +115,16 @@ public:
         }
         cout << endl;
     }
-    ~List(){}
+    ~List(){
+        Node* temp=head;
+        while(head){
+            temp=head;
+            delete temp;
+            temp=nullptr;
+            head=head->next;
+        }
+        head=nullptr;
+    }
 };
 
 int main(){

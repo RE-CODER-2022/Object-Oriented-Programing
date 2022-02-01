@@ -57,7 +57,16 @@ public:
             return 0;
         }
     }
-    ~List() {}
+    ~List() {
+        Node* temp=head;
+        while(head){
+            temp=head;
+            delete temp;
+            temp=nullptr;
+            head=head->next;
+        }
+        head=nullptr;
+    }
 };
 
 int main() {
