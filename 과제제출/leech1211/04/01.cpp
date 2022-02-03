@@ -22,14 +22,14 @@ public:
     List() { head = NULL; }                     //constructor
     ~List()                                     //destructor
     {
-        // Node* x;             //메모리해제를 위한 변수
-        // Node* ptr;           //메모리해제를 위한 변수22
-        // while(x->next != NULL)
-        // {
-        //     x = ptr;
-        //     ptr = ptr->next;
-        //     delete x;
-        // }
+        Node* x = head;             //메모리해제를 위한 변수
+        Node* ptr;           //메모리해제를 위한 변수22
+        while(x->next != NULL)
+        {
+            ptr = x;
+            x = x->next;
+            delete x;
+        }
     }
 
     void InsertNode(int i,string x)                   //노드를 삽입하는 것 i는 몇번째 node인지 x는 data
