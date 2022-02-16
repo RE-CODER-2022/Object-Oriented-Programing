@@ -36,47 +36,48 @@ public:
         {
             head = newNode;
         }
-/*-------------------------------------------------------------------------------------------------------------------
-커맨드를 다 짜고나서 정렬해주는 코드를 넣어주려고 하니 이미 짜놓은 틀에 맞추어 주려고 코드가 못생겼습니다
-예외처리를 일일이 해줬는데 아직 더 숨어있는 오류가 있을수도 ㅜㅜㅜ
-그리고 코드 다짰다가 뭐 잘못해서 다 날아가서 다시 짠거라 가지구 오류있으면 피드백 부탁드립니다*/
+        //cur은 자리가 바뀌어야하는 노드
+        //pre는 cur의 바로 앞노드
         else
         {
-            cur = head;
-            //cout << i << endl;
-            while((cur && i > curIndex) || i == 1)           
+            cur = head;      
+            if(i == 1)
             {
-                if(cur->Getdata() > x)          //사전식 정렬
+                if(cur->Getdata() > x)      //두번째 노드가 처음으로 들어갈경우
                 {
-                    pre = cur;
-                    if(cur == head)             //맨처음으로 들어갈경우
+                    newNode->next = cur;    //기존노드를 새노드의 next로
+                    head = newNode;         //새노드를 head로
+                }
+                else
+                {
+                    cur->next = newNode;
+                }
+            }
+            else
+            {
+                while (1)
+                {
+                    if (cur->Getdata() < x) //새로입력된 데이터가 기존의 데이터보다 사전순 뒤일때
                     {
-                        head = newNode;         
-                        newNode->next = cur;
-                        return 0;
+                        if (cur->next == NULL) //기존노드들 모두보다 사전순 뒤일때 즉 이미 맨뒤노드까지 온경우
+                        {
+                            cur->next = newNode;
+                            break;
+                        }
+                        pre = cur;
+                        cur = cur->next;
                     }
-                    else                        //중간에 들어가는 경우
+                    else //새로 입력된 데이터가 cur의 자리에 들어가야할때
                     {
                         pre->next = newNode;
                         newNode->next = cur;
-                        //cur->next = NULL;
-                        return 0;
-                    }             
+                        cur->next == NULL; //이 줄은 안해도 되는거 같지만 일단 해줌
+                        break;
+                    }
                 }
-                if(i == 1)
-                {
-                    break;
-                }
-                if(i >= 2)
-                {
-                    
-                    cur = cur->next;
-                }
-                curIndex++;
-
-                
+               
             }
-            cur->next = newNode;
+            
         }
         
     }
@@ -85,18 +86,12 @@ public:
     {
         Node* cur = head;
         int k=0;
-
-        // for (int k = 0; k <= n; k++)
-        // {
-        //     //cout << "asd" << endl;
-        //     cur->sequence = k;
-        //     cur = cur->next;
-        // }
         while(cur != NULL)
         {
             cur->sequence = k;
             cur = cur->next;
             k++;
+            //cout << "ok" << endl;
         }
 
        
@@ -210,11 +205,11 @@ int main()
             else                                    //없는 단어라면
             {         
                 Diction -> Insert(word,num);   
-                //cout << "INSERT" << endl;
+                cout << "num: " << num << endl;
                 Diction -> NumberSort(num);         
                 Diction -> Show();                
             }
-            
+            num++;
                       
         }
         else if(commend == C_find)
@@ -228,7 +223,11 @@ int main()
             Diction -> NumberSort(num);  
             Diction->Show();
         }
-        num++;
+        else
+        {
+            
+        }
+        
        
     }
     
