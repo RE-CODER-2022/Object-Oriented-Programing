@@ -69,6 +69,12 @@ public:
                     }
                     else //새로 입력된 데이터가 cur의 자리에 들어가야할때
                     {
+                        if(cur == head)     //새로운 데이터가 맨앞으로 들어가야할때
+                        {
+                            newNode->next = head;
+                            head = newNode;
+                            break;
+                        }
                         pre->next = newNode;
                         newNode->next = cur;
                         cur->next == NULL; //이 줄은 안해도 되는거 같지만 일단 해줌
@@ -147,8 +153,8 @@ public:
             check = check->next;
         }        
         //찾는 단어가 없어 함수가 계속 실행 됬다면    
-        cout << "Not found" << endl;
-            
+        cout << "Not found" << endl;    
+        return 1;        
 
     }
 
@@ -205,7 +211,7 @@ int main()
             else                                    //없는 단어라면
             {         
                 Diction -> Insert(word,num);   
-                cout << "num: " << num << endl;
+                //cout << "num: " << num << endl;
                 Diction -> NumberSort(num);         
                 Diction -> Show();                
             }
@@ -218,10 +224,17 @@ int main()
         }
         else if(commend == C_delete)        
         {
-            Diction->Delete(word);
-            num--;
-            Diction -> NumberSort(num);  
-            Diction->Show();
+            if(Diction->Delete(word) == 0)
+            {
+                num--;
+                Diction->NumberSort(num);
+                Diction->Show();
+            }
+            else
+            {
+                
+            }
+            
         }
         else
         {
