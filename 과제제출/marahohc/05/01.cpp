@@ -43,7 +43,7 @@ public:
                     }
                     newnode = newnode->left;
                 }
-                else if(curnode->getdata() > newnode->getdata()){
+                else if (curnode->getdata() > newnode->getdata()) {
                     if (!newnode->right) {
                         newnode->right = curnode;
                         break;
@@ -88,11 +88,11 @@ public:
     }
     void PrintPre(Node* node) {
         if (node != NULL) {
-            if(node->getdata() == 0){
-                cout<<"Error 700"<<endl;
+            if (node->getdata() == 0) {
+                cout << "Error 700" << endl;
                 return;
             }
-            else{
+            else {
                 cout << node->getdata() << "\t";
                 PrintPre(node->left);
                 PrintPre(node->right);
@@ -101,43 +101,43 @@ public:
     }
     void PrintIn(Node* node) {
         if (node != NULL) {
-            if(node->getdata() == 0){
-                cout<<"Error 700"<<endl;
+            if (node->getdata() == 0) {
+                cout << "Error 700" << endl;
                 return;
             }
-            else{
+            else {
                 PrintIn(node->left);
                 cout << node->getdata() << "\t";
                 PrintIn(node->right);
-            } 
+            }
         }
     }
     void PrintPost(Node* node) {
         if (node != NULL) {
-            if(node->getdata() == 0){
-                cout<<"Error 700"<<endl;
+            if (node->getdata() == 0) {
+                cout << "Error 700" << endl;
                 return;
             }
-            else{
+            else {
                 PrintPost(node->left);
                 PrintPost(node->right);
                 cout << node->getdata() << "\t";
             }
         }
     }
-    ~Tree() {delete root;}
+    ~Tree() { delete root; }
 };
 
 class Queue {
 private:
     int front = 0;
     int rear = 0;
-    int maxSize= 6;
+    int maxSize = 6;
 public:
     int arr[6] = { 0, };
-    Queue(){ };
+    Queue() { };
     bool IsEmpty(void) {
-        return !(front==rear);
+        return !(front == rear);
     }
     bool IsFull(void) {
         return !(front == (rear + 1) % maxSize);
@@ -148,7 +148,7 @@ public:
             return false;
         }
         else {
-            rear = (rear+1) % maxSize;
+            rear = (rear + 1) % maxSize;
             arr[rear] = num;
             return true;
         }
@@ -167,7 +167,8 @@ public:
                 front = (front + num) % maxSize;
             }
             else { // (rear < num)
-                for (int i = front + 1; i <= rear; i++) {
+                for (int i = front + 1; i != rear+1; ++i) {
+                    i = i % maxSize;
                     tree->maketree(arr[i]);
                     arr[i] = '\0';
                 }
@@ -177,11 +178,11 @@ public:
         }
     }
     void PrintQueue(void) {
-        if (arr[front+1] == 0) {
+        if (arr[front + 1] == '\0') {
             cout << "Error 500" << endl;
             return;
         }
-        for (int i = front+1; i <= rear; i++) {            
+        for (int i = front + 1; i <= rear; i++) {
             cout << arr[i] << "\t";
         }
         cout << endl;
@@ -199,31 +200,23 @@ int main(void) {
 
     while (1) {
         cout << "CMD>> ";
-        cin.getline(command, 20);
+        cin.getline(command, 20); //enqueue 1
         char* fstcmd = strtok(command, " "); // enqueue
-        char* seccmd = strtok(NULL, " "); //  1
+        if (fstcmd == NULL) {
+            cout << "Error 100" << endl;
+            continue;
+        }
+        char* seccmd = strtok(NULL, "\n "); //  1
+        int secnum = 0;
+        if(seccmd!=NULL)
+            secnum = atoi(seccmd);
         if (!strcmp("Enqueue", fstcmd)) {
             char* thrcmd = strtok(NULL, " "); // 뒤에 더 오는 숫자
             if (seccmd == NULL) {
                 cout << "Error 200" << endl;
                 continue;
             }
-            else if ((int)*seccmd < 49 || (int)*seccmd > 58) {
-                cout << "Error 200" << endl;
-                continue;
-            }
-            else if (thrcmd != NULL) {
-                cout << "Error 200" << endl;
-                continue;
-            }
-            else{
-                mainqueue.Enqueue((int)*seccmd-48);
-                continue;
-            }
-        }
-        else if (!strcmp("Dequeue", fstcmd)) {
-            char* thrcmd = strtok(NULL, " ");
-            if ((int)*seccmd < 49 || (int)*seccmd > 58) {
+            else if (!secnum) {
                 cout << "Error 200" << endl;
                 continue;
             }
@@ -232,7 +225,22 @@ int main(void) {
                 continue;
             }
             else {
-                mainqueue.Dequeue(&maintree, (int)*seccmd-48);
+                mainqueue.Enqueue(secnum);
+                continue;
+            }
+        }
+        else if (!strcmp("Dequeue", fstcmd)) {
+            char* thrcmd = strtok(NULL, " ");
+            if (!secnum) {
+                cout << "Error 200" << endl;
+                continue;
+            }
+            else if (thrcmd != NULL) {
+                cout << "Error 200" << endl;
+                continue;
+            }
+            else {
+                mainqueue.Dequeue(&maintree, secnum);
                 continue;
             }
         }
@@ -240,29 +248,36 @@ int main(void) {
             mainqueue.PrintQueue();
             continue;
         }
-        else if (!strcmp("PRINT",fstcmd)) {
-            if (!strcmp("PRE", seccmd)) {
-                maintree.PrintPre(maintree.getRoot());
-                cout<<endl;
-                continue;
-            }
-            else if (!strcmp("IN", seccmd)) {
-                maintree.PrintIn(maintree.getRoot());
-                cout<<endl;
-                continue;
-            }
-            else if (!strcmp("POST", seccmd)) {
-                maintree.PrintPost(maintree.getRoot());
-                cout<<endl;
+        else if (!strcmp("PRINT", fstcmd)) {
+            if (seccmd == NULL) {
+                cout << "Error 200" << endl;
                 continue;
             }
             else {
-                cout << "Error 100" << endl;
+                if (!strcmp("PRE", seccmd)) {
+                    maintree.PrintPre(maintree.getRoot());
+                    cout << endl;
+                    continue;
+                }
+                else if (!strcmp("IN", seccmd)) {
+                    maintree.PrintIn(maintree.getRoot());
+                    cout << endl;
+                    continue;
+                }
+                else if (!strcmp("POST", seccmd)) {
+                    maintree.PrintPost(maintree.getRoot());
+                    cout << endl;
+                    continue;
+                }
+                else {
+                    cout << "Error 100" << endl;
+                    continue;
+                }
             }
         }
         else if (!strcmp("SEARCH", fstcmd)) {
             char* thrcmd = strtok(NULL, " ");
-            if ((int)*seccmd < 49 || (int)*seccmd > 58) {
+            if (!secnum) {
                 cout << "Error 200" << endl;
                 continue;
             }
@@ -271,7 +286,7 @@ int main(void) {
                 continue;
             }
             else {
-                maintree.Search((int)*seccmd-48);
+                maintree.Search(secnum);
                 continue;
             }
             continue;
