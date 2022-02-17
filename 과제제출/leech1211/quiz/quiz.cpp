@@ -21,9 +21,9 @@ public:
     Node* cur;
     Node* pre;
 
-    List() {head = NULL;}
+    List() {head = NULL; cur = NULL; pre = NULL;}
 
-    int Insert(string x, int i)
+    void Insert(string x, int i)
     {
         Node* newNode = new Node();
         int curIndex = 1;
@@ -77,7 +77,7 @@ public:
                         }
                         pre->next = newNode;
                         newNode->next = cur;
-                        cur->next == NULL; //이 줄은 안해도 되는거 같지만 일단 해줌
+                        cur->next = NULL; //이 줄은 안해도 되는거 같지만 일단 해줌
                         break;
                     }
                 }
