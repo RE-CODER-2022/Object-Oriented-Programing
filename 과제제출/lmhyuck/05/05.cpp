@@ -6,7 +6,7 @@ using namespace std;
 
 class Node {
 private:
-    int data=0;
+    int data = 0;
 public:
     Node* left, * right;
     Node() {
@@ -25,7 +25,7 @@ public:
     Node* getRoot() { return root; }
     void MakeNode(int arr) { //Queue를 통해서 들어온 값을 BST형식에 맞게 넣어줌
         Node* curr = new Node;
-        if (root->getData()==0) {
+        if (root->getData() == 0) {
             root->setData(arr);
             return;
         }
@@ -77,7 +77,7 @@ public:
     void PrintPre(Node* node) { //Pre-Order방식으로 노드값을 출력
         if (node != NULL) {
             if (node->getData() == 0) {
-                cout << "Error 700" << endl;
+                cout << "Error 700";
                 return;
             }
             else {
@@ -90,7 +90,7 @@ public:
     void PrintIn(Node* node) { //In-Order방식으로 노드값을 출력
         if (node != NULL) {
             if (node->getData() == 0) {
-                cout << "Error 700" << endl;
+                cout << "Error 700";
                 return;
             }
             else {
@@ -103,7 +103,7 @@ public:
     void PrintPost(Node* node) { //Post-Order 방식으로 노드값을 출력
         if (node != NULL) {
             if (node->getData() == 0) {
-                cout << "Error 700" << endl;
+                cout << "Error 700";
                 return;
             }
             else {
@@ -141,7 +141,7 @@ public:
             return true;
         }
     }//원형큐에 데이터값 저장
-    bool Dequeue(Tree* tree ,int num) { //큐에 있던 값들을 해당 개수 만큼 트리로 이동
+    bool Dequeue(Tree* tree, int num) { //큐에 있던 값들을 해당 개수 만큼 트리로 이동
         if (!IsEmpty()) {
             cout << "Error 400" << endl;
             return false;
@@ -150,14 +150,15 @@ public:
             if ((rear - front) >= num) {
                 for (int i = front + 1; i <= front + num; i++) {
                     tree->MakeNode(arr[i]);
-                    arr[i] = '\0';
+                    arr[i] = 0;
                 }
                 front = (front + num) % maxSize;
             }
             else {
                 for (int i = front + 1; i <= rear; i++) {
+                    i = i % maxSize;
                     tree->MakeNode(arr[i]);
-                    arr[i] = '\0';
+                    arr[i] = 0;
                 }
                 front = rear % maxSize;
             }
@@ -165,7 +166,7 @@ public:
         }
     }
     void DisplayQueue(void) {
-        if (arr[front + 1] == 0) {
+        if (arr[(front + 1)%maxSize] == 0) {
             cout << "Error 500" << endl;
             return;
         }
@@ -185,15 +186,19 @@ int main() {
         cout << "CMD>> ";
         cin.getline(cmd, 20);
         char* fcmd = strtok(cmd, " ");
+        if (fcmd == NULL) {
+        cout << "Error 100" << endl;
+        continue;
+        }
         char* scmd = strtok(NULL, " ");
-        if (!strcmp("Enqueue", fcmd)){
-            char* tcmd=strtok(NULL, " ");
+        if (!strcmp("Enqueue", fcmd)) {
+            char* tcmd = strtok(NULL, " ");
             if (scmd == NULL) {
-                cout<<"Error 200"<<endl;
+                cout << "Error 200" << endl;
                 continue;
             }
-            else if ((int)*scmd < 49 || (int)*scmd>58) {
-                cout<<"Error 200"<<endl;
+            else if (atoi(scmd)<1) {
+                cout << "Error 200" << endl;
                 continue;
             }
             else if (tcmd != NULL) {
@@ -201,7 +206,7 @@ int main() {
                 continue;
             }
             else {
-                que.Enqueue((int)*scmd-48);
+                que.Enqueue(atoi(scmd));
                 continue;
             }
         }
@@ -211,7 +216,7 @@ int main() {
                 cout << "Error 200" << endl;
                 continue;
             }
-            else if ((int)*scmd < 49 || (int)*scmd>58) {
+            else if (atoi(scmd)<1) {
                 cout << "Error 200" << endl;
                 continue;
             }
@@ -220,7 +225,7 @@ int main() {
                 continue;
             }
             else {
-                que.Dequeue(&tree, (int)*scmd - 48);
+                que.Dequeue(&tree, atoi(scmd));
                 continue;
             }
         }
@@ -232,7 +237,7 @@ int main() {
                 cout << "Error 200" << endl;
                 continue;
             }
-            else if ((int)*scmd < 49 || (int)*scmd>58) {
+            else if (atoi(scmd)<1) {
                 cout << "Error 200" << endl;
                 continue;
             }
@@ -241,37 +246,37 @@ int main() {
                 continue;
             }
             else {
-                tree.Search((int)*scmd - 48);
+                tree.Search(atoi(scmd));
                 continue;
             }
         }
         else if (!strcmp("PRINT", fcmd)) {
             if (!strcmp("IN", scmd)) {
                 tree.PrintIn(tree.getRoot());
-                cout<<endl;
+                cout << endl;
                 continue;
             }
             else if (!strcmp("PRE", scmd)) {
                 tree.PrintPre(tree.getRoot());
-                cout<<endl;
+                cout << endl;
                 continue;
             }
             else if (!strcmp("POST", scmd)) {
                 tree.PrintPost(tree.getRoot());
-                cout<<endl;
+                cout << endl;
                 continue;
             }
             else
                 cout << "Error 200" << endl;
         }
         else if (!strcmp("EXIT", fcmd)) {
-            break;
+            return 0;
         }
         else {
             cout << "Error 100" << endl;
+            continue;
         }
     }
     delete cmd;
-    delete curr;
     return 0;
 }
