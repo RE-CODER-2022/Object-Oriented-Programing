@@ -13,7 +13,7 @@ public:
         left = nullptr;
         right = nullptr;
     }
-    void setData(char* _data) { strcpy(data,_data); }
+    void setData(char* _data) { strcpy(data, _data); }
     char* getData() { return data; }
 };
 
@@ -77,6 +77,8 @@ public:
     void Delete(char* dword) {
         Node* prev = root;
         Node* temp = root;
+        int lcheck = 0;
+        int rcheck = 0;
         int count = 0;
         while (temp) {
             if (strcmp(temp->getData(), dword) < 0) {
@@ -84,9 +86,20 @@ public:
                     cout << "Not found" << endl;
                     return;
                 }
-                if (count > 0)
-                    prev = prev->right;
-                temp = temp->right;
+                if (count == 0)
+                    temp = temp->right;
+                else {
+                    if (lcheck == 0) {
+                        temp = temp->right;
+                        prev = prev->right;
+                    }
+                    else if (lcheck == 1) {
+                        temp = temp->right;
+                        prev = prev->left;
+                        lcheck = 0;
+                    }
+                }
+                rcheck = 1;
                 count++;
             }
             else if (strcmp(temp->getData(), dword) > 0) {
@@ -94,21 +107,85 @@ public:
                     cout << "Not found" << endl;
                     return;
                 }
-                if (count > 0)
-                    prev = prev->left;
-                temp = temp->left;
+                if (count == 0)
+                    temp = temp->left;
+                else {
+                    if (rcheck == 0) {
+                        temp = temp->left;
+                        prev = prev->left;
+                    }
+                    else if (rcheck == 1) {
+                        temp = temp->left;
+                        prev = prev->right;
+                        rcheck = 0;
+                    }
+                }
+                lcheck = 1;
                 count++;
             }
             else if (strcmp(temp->getData(), dword) == 0) {
-                if (!temp->right && !temp->left) {
+                Node* renode = new Node;
+                if (!temp->left && !temp->right) { //삭제하려는 노드가 자식 노드가 없는 경우
                     temp = NULL;
+                    return;
                 }
-                else {
-                    prev->right = temp->right;
-                    prev->left = temp->left;
-                    temp = NULL;
+                if (prev->right == temp) {
+                    if (!temp->left && temp->right) { //삭제하려는 노드가 오른쪾 자식 노드만 가진 경우
+                        prev->right = temp->right;
+                        temp = NULL;
+                        return;
+                    }
+                    else if (temp->left && !temp->right) { //삭제하려는 노드가 왼쪽 자식 노드만 가진 경우
+                        prev->right = temp->left;
+                        temp = NULL;
+                        return;
+                    }
+                    else if (temp->left && temp->right) { //삭제하려는 노드가 자식 노드를 두 개 가지고 있는 경우
+                        Node* renode = new Node; 
+                        while (temp->left) { // 삭제 노드를 대신할 삭제 노드 다음으로 큰 노드찾기
+                            temp = temp->left;
+                        }
+                        renode->setData(temp->getData());
+                        Delete(temp->getData());
+                        renode->left = prev->right->left;
+                        renode->right = prev->right->right;
+                        prev->right = renode;
+                        temp = NULL;
+                        return;
+                    }
+                    else
+                        return;
                 }
-                return;
+                else if (prev->left == temp) {
+                    if (!temp->left && temp->right) { //삭제하려는 노드가 오른쪾 자식 노드만 가진 경우
+                        prev->left = temp->right;
+                        temp = NULL;
+                        return;
+                    }
+                    else if (temp->left && !temp->right) { //삭제하려는 노드가 왼쪽 자식 노드만 가진 경우
+                        prev->left = temp->left;
+                        temp = NULL;
+                        return;
+                    }
+                    else if (temp->left && temp->right) { //삭제하려는 노드가 자식 노드를 두 개 가지고 있는 경우
+                        Node* renode = new Node;
+                        temp = temp->right;
+                        while (temp->left) { // 삭제 노드를 대신할 삭제 노드 다음으로 큰 노드찾기
+                            temp = temp->left;
+                        }
+                        renode->setData(temp->getData());
+                        Delete(temp->getData());
+                        renode->left = prev->left->left;
+                        renode->right = prev->left->right;
+                        prev->left = renode;
+                        temp = NULL;
+                        return;
+                    }
+                    else
+                        return;
+                }
+                else
+                    return;
             }
         }
     }
@@ -139,7 +216,7 @@ public:
         else
             return;
     }
-    ~Tree(){}
+    ~Tree() {}
 };
 
 int main(void) {
@@ -152,7 +229,7 @@ int main(void) {
         if (!strcmp("END", fcmd)) {
             return 0;
         }
-        if (!strcmp("INSERT", fcmd)){
+        if (!strcmp("INSERT", fcmd)) {
             cin >> scmd;
             tree.InsertWord(scmd);
             continue;
